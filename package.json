@@ -1,0 +1,22 @@
+{
+  "name": "cordova-plugin-xebest",
+  "version": "1.0.0",
+  "description": "Xebest Cordova  Plugin",
+  "cordova": {
+    "id": "com.xebest",
+    "platforms": [
+      "ios",
+      "android"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://git-wip-us.apache.org/repos/asf/cordova-plugin-console.git"
+  },
+  "keywords": [
+    "cordova",
+    "Xebest"
+  ],
+  "author": "Apache Software Foundation",
+  "license": "Apache 2.0"
+}
