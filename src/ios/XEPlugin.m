@@ -12,43 +12,100 @@
 
 -(void)normalCommand:(CDVInvokedUrlCommand *)command {
 #ifdef DEBUG
-    NSLog(@"command is %@", command);
+    NSLog(@"command is %@", command.arguments);
 #endif
     
-    NSString *arg1;
-    @try {
-        arg1 = [command.arguments objectAtIndex:0];
-    }
-    @catch (NSException *exception) {
-        NSLog(@"error: %@", exception);
-    }
-    @finally {
-        
-    }
     
     if ([self.viewController conformsToProtocol: @protocol(XEProtocol)]) {
         id <XEProtocol>  xe = (id <XEProtocol>)self.viewController;
-        switch ([arg1 integerValue]) {
-            case NavNext:
-            {
-                [xe navNext];
+        [xe commonCommand:command.arguments];
+    }
+}
+
+-(void) toast:(CDVInvokedUrlCommand *)command {
+    if (self.toast != nil) {
+        NSString *message = @"";
+        NSTimeInterval time = 1.5;
+        ToastPosition position = ToastBottom;
+        
+        switch (command.arguments.count) {
+            case 2:
+                message = command.arguments[1];
                 break;
-            }
                 
-            case NavBack:
+            case 3:
+                time = [command.arguments[2] doubleValue];
+                break;
+                
+            case 4:
             {
-                [xe navBack];
+                NSString *p = command.arguments[3];
+                if ([p isEqualToString:@"top"]) {
+                    position = ToastTop;
+                }
+                else if ([p isEqualToString:@"center"])
+                {
+                    position = ToastCenter;
+                }
+                else
+                {
+                    position = ToastBottom;
+                }
                 break;
             }
                 
             default:
+                break;
+        }
+        
+        NSString *firstArg = command.arguments[0];
+        if ([firstArg isEqualToString:@"show"]) {
+            [self.toast showToastWithContent:message showTime:time postion:position];
+        }
+        else if ([firstArg isEqualToString:@"success"])
+        {
+            [self.toast showSuccess:message];
+        }
+        else if ([firstArg isEqualToString:@"error"])
+        {
+            [self.toast showErr:message];
+        }
+        
+        
+    }
+    
+}
+
+-(void)loading:(CDVInvokedUrlCommand *)command {
+    NSString *firstArg = command.arguments[0];
+    
+    if ([firstArg isEqualToString:@"show"]) {
+        NSString *message = @"";
+        BOOL isForce = YES;
+        
+        switch (command.arguments.count) {
+            case 2:
+                message = command.arguments[1];
+                break;
+                
+            case 3:
             {
-                [xe commonCommand:command.arguments];
+                
+                isForce = [command.arguments[2] boolValue];
                 break;
             }
-               
+                
+            default:
+                break;
         }
+        
+        [self.loading show:message force:isForce];
     }
+    else
+    {
+        [self.loading hide];
+    }
+    
 }
 
 @end

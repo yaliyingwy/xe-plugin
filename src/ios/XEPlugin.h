@@ -9,21 +9,42 @@
 #import <Cordova/CDVPlugin.h>
 
 typedef enum : NSUInteger {
-    NavNext = 1,  //nav push
-    NavBack = 2,  //nav pop
-} CommandType;
+    ToastBottom = 1,  //下
+    ToastCenter = 2,  //中
+    ToastTop = 3 //上
+} ToastPosition;
 
 @protocol XEProtocol <NSObject>
 
 @required
--(void) navNext;
--(void) navBack;
 -(void) commonCommand:(NSArray *) params;
+
+@end
+
+@protocol ToastProtocol <NSObject>
+
+@required
+-(void)showToastWithContent:(NSString *)content showTime:(NSTimeInterval)showTime postion:(ToastPosition) position;
+-(void)showToastWithContent:(NSString *)content;
+-(void) showSuccess:(NSString *) message;
+-(void) showErr:(NSString *) message;
+@end
+
+@protocol LoadingProtocol <NSObject>
+
+@required
+-(void) show:(NSString *) message force:(BOOL) force;
+-(void) hide;
 
 @end
 
 @interface XEPlugin : CDVPlugin
 
+@property (assign, nonatomic) id<ToastProtocol> toast;
+@property (assign, nonatomic) id<LoadingProtocol> loading;
+
 -(void) normalCommand:(CDVInvokedUrlCommand *) command;
+-(void) toast:(CDVInvokedUrlCommand *) command;
+-(void) loading:(CDVInvokedUrlCommand *) command;
 
 @end

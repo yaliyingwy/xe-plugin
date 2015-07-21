@@ -1,0 +1,10 @@
+{
+    "version": "0.0.5",
+    "name": "com.xebest.xe-plugin",
+    "cordova_name": "xebest",
+    "platforms": [
+        "ios",
+        "android"
+    ],
+    "engines": []
+}
