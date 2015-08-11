@@ -34,11 +34,15 @@
                 break;
                 
             case 3:
+                message = command.arguments[1];
                 time = [command.arguments[2] doubleValue];
                 break;
                 
             case 4:
             {
+                message = command.arguments[1];
+                time = [command.arguments[2] doubleValue];
+                
                 NSString *p = command.arguments[3];
                 if ([p isEqualToString:@"top"]) {
                     position = ToastTop;
@@ -90,7 +94,7 @@
                 
             case 3:
             {
-                
+                message = command.arguments[1];
                 isForce = [command.arguments[2] boolValue];
                 break;
             }

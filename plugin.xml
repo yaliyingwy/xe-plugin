@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<plugin id="com.xebest.xe-plugin" version="0.1.9" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+<plugin id="com.xebest.xe-plugin" version="0.2.1" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
     <name>xebest</name>
     <js-module name="xebest" src="www/xe-plugin.js">
         <clobbers target="xe"/>
@@ -7,6 +7,8 @@
     <platform name="ios">
         <header-file src="src/ios/XEPlugin.h"/>
         <source-file src="src/ios/XEPlugin.m"/>
+        <header-file src="src/ios/XEViewController.h"/>
+        <source-file src="src/ios/XEViewController.m"/>
         <config-file parent="/*" target="config.xml">
             <feature name="XEPlugin">
                 <param name="ios-package" value="XEPlugin"/>
